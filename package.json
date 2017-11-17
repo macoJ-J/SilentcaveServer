@@ -9,7 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "heloku"
+    "start": "node heloku.js"
   },
   "repository": {
     "type": "git",
