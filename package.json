@@ -1,7 +1,7 @@
 {
-  "name": "heloku",
+  "name": "Silentcave",
   "version": "1.0.0",
-  "description": "",
+  "description": "silentcave",
   "main": "heloku.js",
   "dependencies": {
     "express": "*",
