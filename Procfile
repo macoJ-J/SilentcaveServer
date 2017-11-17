@@ -1,1 +1,1 @@
-web: node heloku.js
+web: node heloku
