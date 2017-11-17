@@ -8,8 +8,9 @@
   "author": "toyodakouzi",
   "license": "ISC",
   "dependencies": {
-    "express": "*",
-    "ws": "*"
+    "express": "^4.16.2",
+    "ws": "^3.2.0"
+
   },
   "devDependencies": {},
   "engines": {
