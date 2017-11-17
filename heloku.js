@@ -7,7 +7,7 @@ var WebSocketServer = require('ws').Server
 app.use(express.static(__dirname + '/'));
 
 var server = http.createServer(app);
-server.listen(port);
+server.listen(port,process.env.IP);
 
 console.log('http server listening on %d', port);
 
