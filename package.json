@@ -9,9 +9,9 @@
   "license": "ISC",
   "dependencies": {
     "bufferutil": "3.0.3",
-    "express": "^4.16.2",
+    "express": "*",
     "utf-8-validate": "3.0.4",
-    "ws": "3.3.1"
+    "ws": "*"
   },
   "devDependencies": {},
   "engines": {
