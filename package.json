@@ -1,32 +1,29 @@
 {
-  "name": "server",
+  "name": "heloku",
   "version": "1.0.0",
+  "description": "",
   "main": "heloku.js",
-  "scripts": {
-    "start": "node heloku.js"
-  },
-  "author": "toyodakouzi",
-  "license": "ISC",
   "dependencies": {
-    "bufferutil": "3.0.3",
-    "express": "4.16.2",
-    "utf-8-validate": "3.0.4",
-    "ws": "3.3.1"
+    "bufferutil": "^3.0.3",
+    "express": "^4.16.2",
+    "utf-8-validate": "^3.0.4",
+    "ws": "^3.3.1"
   },
   "devDependencies": {},
-  "engines": {
-    "node": "6.11.4"
+  "scripts": {
+    "test": "heloku"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nagaoyosuke/SilentcaveServer.git"
   },
   "keywords": [
-    "kouzi1919"
+    "heloku"
   ],
+  "author": "nakanesotone",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/nagaoyosuke/SilentcaveServer/issues"
   },
-  "homepage": "https://github.com/nagaoyosuke/SilentcaveServer#readme",
-  "description": ""
+  "homepage": "https://github.com/nagaoyosuke/SilentcaveServer#readme"
 }
