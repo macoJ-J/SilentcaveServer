@@ -4,10 +4,8 @@
   "description": "",
   "main": "heloku.js",
   "dependencies": {
-    "bufferutil": "^3.0.3",
-    "express": "^4.16.2",
-    "utf-8-validate": "^3.0.4",
-    "ws": "^3.3.1"
+    "express": "*",
+    "ws": "*"
   },
   "devDependencies": {},
   "scripts": {
