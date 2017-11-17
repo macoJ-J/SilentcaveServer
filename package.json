@@ -7,21 +7,11 @@
     "express": "*",
     "ws": "*"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "node heloku.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nagaoyosuke/SilentcaveServer.git"
-  },
-  "keywords": [
-    "heloku"
-  ],
-  "author": "nakanesotone",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nagaoyosuke/SilentcaveServer/issues"
-  },
-  "homepage": "https://github.com/nagaoyosuke/SilentcaveServer#readme"
+  "engines": {
+    "node": "6.11.4"
+  }
+
 }
