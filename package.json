@@ -12,7 +12,6 @@
   "devDependencies": {},
   "scripts": {
     "test": "heloku"
-    "postinstall": "./node_modules/bower/bin/bower install && npm run build"
   },
   "repository": {
     "type": "git",
