@@ -20,7 +20,7 @@ var count = 0;
 
 var hostPC;
 
-var wss = new WebSocketServer({server: server});
+var wss = new WebSocketServer({server});
 
 wss.broadcast = function (data) {
 	for (var i in this.clients) {
