@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "toyodakouzi",
+  "license": "ISC",
+  "dependencies": {
+    "express": "*",
+    "ws": "*"
+  },
+  "devDependencies": {},
+  "engines": {//ここ追加
+    "node": "6.11.4"//ここ追加（自分のnodeのバージョンを調べて入れる）
+  },//ここ追加
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nagaoyosuke/SilentcaveServer.git"
+  },
+  "keywords": [
+    "kouzi1919"
+  ],
+  "bugs": {
+    "url": "https://github.com/nagaoyosuke/SilentcaveServer/issues"
+  },
+  "homepage": "https://github.com/nagaoyosuke/SilentcaveServer#readme",
+  "description": ""
+}
