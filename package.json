@@ -12,9 +12,9 @@
     "ws": "*"
   },
   "devDependencies": {},
-  "engines": {//ここ追加
-    "node": "6.11.4"//ここ追加（自分のnodeのバージョンを調べて入れる）
-  },//ここ追加
+  "engines": {
+    "node": "6.11.4" 
+     },
 
   "repository": {
     "type": "git",
