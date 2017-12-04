@@ -45,11 +45,8 @@ wss.on('connection', function(ws) {
 			};
 			
 			count ++;
-			if (count >= 3){
+			if (count >= 2){
 				count = 0;
-				player1a = 0;
-				player2a = 0;
-				console.log ('reset');
 			};
 
 			//誰からでもメッセージを受信した時
