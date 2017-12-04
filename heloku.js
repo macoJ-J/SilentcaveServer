@@ -63,8 +63,8 @@ wss.on('connection', function(ws) {
 					
 					if (~pl2.indexOf('HP')) {
 						//data2にhpを含む場合の処理
-						console.log (now.toLocaleString() + ' player01: %s', pl2.substring( pl2.indexOf('HP'), 8 ));
-						console.log (now.toLocaleString() + ' player01: %s', pl2.substring( pl2.indexOf('name'), 16 ));
+						console.log (now.toLocaleString() + ' player01: %s', pl2.substring( pl2.indexOf('HP'),pl2.indexOf('HP') +8 ));
+						console.log (now.toLocaleString() + ' player01: %s', pl2.substring( pl2.indexOf('name'), pl2.indexOf('HP') +16 ));
 						wss.broadcast (pl2);
 
 					}
@@ -97,8 +97,8 @@ wss.on('connection', function(ws) {
 					
 					if (~pl1.indexOf('HP')) {
 						//data2にhpを含む場合の処理
-						console.log (now.toLocaleString() + ' player01: %s', pl1.substring( pl1.indexOf('HP'), 8 ));
-						console.log (now.toLocaleString() + ' player01: %s', pl1.substring( pl1.indexOf('name'), 16 ));
+						console.log (now.toLocaleString() + ' player01: %s', pl1.substring( pl1.indexOf('HP'),pl1.indexOf('HP') + 8 ));
+						console.log (now.toLocaleString() + ' player01: %s', pl1.substring( pl1.indexOf('name'),  pl1.indexOf('name') +16 ));
 						wss.broadcast (pl1);
 
 					}
