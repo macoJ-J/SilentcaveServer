@@ -46,9 +46,9 @@ wss.on('connection', function(ws) {
 			};
 			
 			count ++;
-			if (count >= 2){
-				count = 0;
-			};
+		//	if (count >= 2){
+		//		count = 0;
+		//	};
 
 			//誰からでもメッセージを受信した時
 			ws.on ('message', function (message) {
@@ -127,7 +127,11 @@ wss.on('connection', function(ws) {
 				//切断時
 				player2.on('close', function () {
 						player2a = 0;
-						count = 1;
+						if(count > 1){
+							count = 1;
+						}else {
+							count = 0;
+						}
 						console.log ('player2:reset');
 				});
 				
