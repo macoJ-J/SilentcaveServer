@@ -16,6 +16,7 @@ var player1a = 0;
 var player2 ;
 var player2a = 0;
 var count = 0;
+var now = new Date();
 
 
 var hostPC;
@@ -51,14 +52,21 @@ wss.on('connection', function(ws) {
 
 			//誰からでもメッセージを受信した時
 			ws.on ('message', function (message) {
-				var now = new Date();
-				console.log (now.toLocaleString() + ' Received: %s', message);
-				wss.broadcast (message);
+				//var now = new Date();
+				//console.log (now.toLocaleString() + ' Received: %s', message);
+				//wss.broadcast (message);
 				
 			});
 			//player1からメッセージを受信した時
 			if (player1a === 1) {
 				player1.on('message', function (pl2) {
+					
+					if (~pl2.indexOf('HP')) {
+						//data2にhpを含む場合の処理
+						console.log (now.toLocaleString() + ' player01: %s', pl2);
+						wss.broadcast (pl2);
+
+					}
 					if (player2a === 1) {
 						
 										
@@ -69,7 +77,7 @@ wss.on('connection', function(ws) {
 							pl2 = pl2.replace( /opponent/g , "my" ) ;
 						};
 						
-						var data2 = JSON.parse(pl2);
+												var data2 = JSON.parse(pl2);
 						player2.send(JSON.stringify(data2));
 					};
 				});
@@ -85,6 +93,14 @@ wss.on('connection', function(ws) {
 			//player2からメッセージを受信した時
 			if (player2a === 1){	
 				player2.on('message', function (pl1) {
+					
+					if (~pl1.indexOf('HP')) {
+						//data2にhpを含む場合の処理
+						console.log (now.toLocaleString() + ' player02: %s', pl1);
+						wss.broadcast (pl1);
+
+					}
+										
 					if (player1a === 1) {
 							
 						if (~pl1.indexOf('my')) {
