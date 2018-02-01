@@ -15,13 +15,21 @@ var player1 ;
 var player1a = 0;
 var player2 ;
 var player2a = 0;
-var count = 0;
 var now = new Date();
 
+var connections = [];
+connections[0] = null;
 
 var hostPC;
 
 var wss = new WebSocketServer({server});
+
+var Player = function(ID, isconnection, ws){
+  this.ID = ID;
+  this.isconnection = isconnection;
+  this.ws = ws;
+}
+
 
 wss.broadcast = function (data) {
 	for (var i in this.clients) {
@@ -29,114 +37,83 @@ wss.broadcast = function (data) {
 	};
 };
 
+function Send(ID, message){
+  var who;
+  if(ID % 2 === 0){
+    who = ID - 1;
+  }else {
+    who = ID + 1;
+  }
+  //console.log(id);
+  if(connections[who] !== undefined){
+    //console.log (' Received: %s', message);
+    //console.log(connections[who].isconnection);
+    if (connections[who].isconnection === true){
+      if (~message.indexOf('my')) {
+        //data2にmyを含む場合の処理
+        message = message.replace( /my/g , "opponent" ) ;
+      }else if ( ~message.indexOf('opponent')) {
+        message = message.replace( /opponent/g , "my" ) ;
+      };
+    //  console.log(message);
+      var data1 = JSON.parse(message);
+      connections[who].ws.send(JSON.stringify(data1));
+    }
+  }
+}
 
 console.log('websocket server created');
 wss.on('connection', function(ws) {
-		switch(count){
-			case 0:
-				player1 = ws;
-				player1.send(JSON.stringify({"ID":1,"name":"my"}));
-				player1a = 1;
-				wss.broadcast ("player1");
-			break;
-			case 1:
-				player2 = ws;
-				player2.send(JSON.stringify({"ID":2,"name":"my"}));
-				player2a = 1;
-				wss.broadcast ("player2");
-			break;
-			};
 
-			count ++;
-		//	if (count >= 2){
-		//		count = 0;
-		//	};
+      var connelength =  connections.length ;
+      for(i = 1; i < connelength; i++){
+        if ( connections[i].isconnection === false){
+          connelength = i;
+          console.log(connelength);
+          break;
+        };
+      };
+
+      connections[connelength] = new Player(connelength,true,ws);
+      //connections[connelength].ws._closeCode = 0;
+      connections[connelength].ws.send(JSON.stringify({"ID":connections[connelength].ID,"name":"my"}));
+      wss.broadcast ("player" +connelength);
+
+      //console.log(connections[connelength].ws.remoteAddress);
+      console.log(connections[connelength].ID);
+
 
 			//誰からでもメッセージを受信した時
 			ws.on ('message', function (message) {
 				var now = new Date();
-				console.log (now.toLocaleString() + ' Received: %s', message);
+        var date = JSON.parse(message);
+				//console.log (now.toLocaleString() + ' Received: %s', message);
 				wss.broadcast (message);
-
+        //console.log(date);
+        Send(date.ID, message);
 			});
-			//player1からメッセージを受信した時
-			if (player1a === 1) {
-				player1.on('message', function (pl2) {
 
-					if (~pl2.indexOf('HP')) {
-						//data2にhpを含む場合の処理
-						console.log (now.toLocaleString() + ' player01: %s', pl2.substring( pl2.indexOf('HP'),pl2.indexOf('HP') +8 ));
-						console.log (now.toLocaleString() + ' player01: %s', pl2.substring( pl2.indexOf('name'), pl2.indexOf('name') +16 ));
-						wss.broadcast (pl2);
+      ws.on('close', function (ws) {
+        var closeid = "nuloppp";
+        console.log(ws);
+        for(i = 1; i < connections.length; i++){
+          console.log(connections[i].ws._closeCode);
+          if( connections[i].ws._closeCode === ws){
+            closeid = connections[i].ID.toString();
+            connections[i].isconnection = false;
+            connections[i].ws._closeCode = 0;
+          }
+        }
+        console.log ('player' + closeid +  ':reset');
+      });
 
-					}
-					if (player2a === 1) {
+      ws.on('disconnect', function(ws){
+        console.log("disconnect:" + ws);
+      });
 
-
-						if (~pl2.indexOf('my')) {
-							//data2にmyを含む場合の処理
-							pl2 = pl2.replace( /my/g , "opponent" ) ;
-						}else if ( ~pl2.indexOf('opponent')) {
-							pl2 = pl2.replace( /opponent/g , "my" ) ;
-						};
-
-												var data2 = JSON.parse(pl2);
-						player2.send(JSON.stringify(data2));
-					};
-				});
-
-				//切断時
-				player1.on('close', function () {
-						player1a = 0;
-						count = 0;
-						console.log ('player1:reset');
-				});
-			};
-
-			//player2からメッセージを受信した時
-			if (player2a === 1){
-				player2.on('message', function (pl1) {
-
-					if (~pl1.indexOf('HP')) {
-						//data2にhpを含む場合の処理
-						console.log (now.toLocaleString() + ' player02: %s', pl1.substring( pl1.indexOf('HP'),pl1.indexOf('HP') + 8 ));
-						console.log (now.toLocaleString() + ' player02: %s', pl1.substring( pl1.indexOf('name'),  pl1.indexOf('name') +16 ));
-						wss.broadcast (pl1);
-
-					}
-
-					if (player1a === 1) {
-
-						if (~pl1.indexOf('my')) {
-							//data2にmyを含む場合の処理
-							pl1 = pl1.replace( /my/g , "opponent" ) ;
-						}else if ( ~pl1.indexOf('opponent')) {
-							pl1 = pl1.replace( /opponent/g , "my" ) ;
-						};
-
-						/*if ( data1.match(/my/)) {
-							//data2にmyを含む場合の処理
-							data1 = data1.replace( /my/g , "opponent" ) ;
-						}else if ( ~data1.indexOf('opponent')) {
-							data1 = data1.replace( /opponent/g , "my" ) ;
-						};
-						*/
-						var data1 = JSON.parse(pl1);
-						player1.send(JSON.stringify(data1));
-
-					};
-				});
-				//切断時
-				player2.on('close', function () {
-						player2a = 0;
-						if(count > 1){
-							count = 1;
-						}else {
-							count = 0;
-						}
-						console.log ('player2:reset');
-				});
-
-			};
+      ws.on('error', function(err){
+        console.log(err);
+        console.log(err.stack);
+      });
 
 });
