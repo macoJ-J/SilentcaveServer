@@ -11,10 +11,6 @@ server.listen(port,process.env.IP);
 
 console.log('http server listening on %d', port);
 
-var player1 ;
-var player1a = 0;
-var player2 ;
-var player2a = 0;
 var now = new Date();
 
 var connections = [];
@@ -22,6 +18,7 @@ connections[0] = null;
 
 var hostPC;
 
+var count = 0;
 var wss = new WebSocketServer({server});
 
 var Player = function(ID, isconnection, ws){
@@ -36,9 +33,13 @@ wss.broadcast = function (data) {
 		this.clients [i].send (data);
 	};
 };
+function cou(){
+	console.log('10秒たった：',count);
+}
 
 function Send(ID, message){
   var who;
+	var date = JSON.parse(message);
   if(ID % 2 === 0){
     who = ID - 1;
   }else {
@@ -46,7 +47,11 @@ function Send(ID, message){
   }
   //console.log(id);
   if(connections[who] !== undefined){
-    //console.log (' Received: %s', message);
+		if(date.weaponknockback !== undefined && date.weaponknockback !== ""){
+			count++;
+    	//console.log (' Received: %s',date.weaponknockback);
+			setTimeout(cou, 10000);
+		}
     //console.log(connections[who].isconnection);
     if (connections[who].isconnection === true){
       if (~message.indexOf('my')) {
@@ -57,7 +62,12 @@ function Send(ID, message){
       };
     //  console.log(message);
       var data1 = JSON.parse(message);
-      connections[who].ws.send(JSON.stringify(data1));
+			try{
+				connections[who].ws.send(JSON.stringify(data1));
+			} catch (err) {
+				console.log(err.name + ': ' + err.message);
+				connections[who].isconnection == false;
+			}
     }
   }
 }
