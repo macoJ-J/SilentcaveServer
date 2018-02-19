@@ -21,10 +21,11 @@ var hostPC;
 var count = 0;
 var wss = new WebSocketServer({server});
 
-var Player = function(ID, isconnection, ws){
+var Player = function(ID, isconnection, ws,ready){
   this.ID = ID;
   this.isconnection = isconnection;
   this.ws = ws;
+	this.ready = ready;
 }
 
 
@@ -33,8 +34,14 @@ wss.broadcast = function (data) {
 		this.clients [i].send (data);
 	};
 };
-function cou(){
-	console.log('10秒たった：',count);
+function readygo(ID,who){
+	connections[ID].ws.send(JSON.stringify({"server":"readygo","name":"server"}));
+	try{
+		connections[who].ws.send(JSON.stringify({"server":"readygo","name":"server"}));
+	} catch (err) {
+		console.log(err.name + ': ' + err.message + "ser");
+		connections[who].isconnection == false;
+	}
 }
 
 function Send(ID, message){
@@ -46,11 +53,17 @@ function Send(ID, message){
     who = ID + 1;
   }
   //console.log(id);
+
+	if (~message.indexOf('ready')) {
+		connections[ID].ready = date.ready;
+	};
   if(connections[who] !== undefined){
 		if(date.weaponknockback !== undefined && date.weaponknockback !== ""){
-			count++;
-    	//console.log (' Received: %s',date.weaponknockback);
-			setTimeout(cou, 10000);
+		//if(date.weaponknockback !== undefined && date.isChanged === true && date.name === "my"){
+
+			//count++;
+    	//console.log (' Received: %s',date.weaponknockback,date.name,date.ID);
+			//setTimeout(cou, 10000);
 		}
     //console.log(connections[who].isconnection);
     if (connections[who].isconnection === true){
@@ -68,6 +81,16 @@ function Send(ID, message){
 				console.log(err.name + ': ' + err.message);
 				connections[who].isconnection == false;
 			}
+
+			//試合開始の同期
+			if(connections[who].ready === "ready" && connections[ID].ready === "ready"){
+				//count++;
+				console.log (' Received:');
+				connections[who].ready = "no";
+				connections[ID].ready = "no";
+				setTimeout(function(){readygo(ID,who)}, 3500);//試合開始の同期する時間
+			}
+
     }
   }
 }
@@ -84,7 +107,7 @@ wss.on('connection', function(ws) {
         };
       };
 
-      connections[connelength] = new Player(connelength,true,ws);
+      connections[connelength] = new Player(connelength,true,ws,"no");
       //connections[connelength].ws._closeCode = 0;
       connections[connelength].ws.send(JSON.stringify({"ID":connections[connelength].ID,"name":"my"}));
       wss.broadcast ("player" +connelength);
@@ -111,6 +134,7 @@ wss.on('connection', function(ws) {
           if( connections[i].ws._closeCode === ws){
             closeid = connections[i].ID.toString();
             connections[i].isconnection = false;
+						connections[i].ready = "no";
             connections[i].ws._closeCode = 0;
           }
         }
