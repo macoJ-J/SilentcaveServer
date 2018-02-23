@@ -55,7 +55,11 @@ function Send(ID, message){
   //console.log(id);
 
 	if (~message.indexOf('ready')) {
-		connections[ID].ready = date.ready;
+		try {
+			connections[ID].ready = date.ready;
+		} catch (err) {
+			console.log(err.name + ': ' + err.message);
+		}
 	};
   if(connections[who] !== undefined){
 		if(date.weaponknockback !== undefined && date.weaponknockback !== ""){
