@@ -117,32 +117,17 @@ wss.on('connection', function(ws) {
 
       console.log(connections[connelength].ID);
 
-       // 配列の長さの文だけループを回す
-    for (var i = 0; i < connections.length; i++) {
-        // まず、idを表示する
-        // Htmlのdivの部分を指定する
-        var getData = document.getElementById('getData');
-        // 表示したいデータを指定する
-        var arrayId = document.createTextNode(i);
-        // 要素を指定し、その要素の子要素としてデータを表示する
-        getData.appendChild(arrayId);
-
-        // 次に、nameを表示する
-        //var arrayName = document.createTextNode(connections[i].Player);
-        //getData.appendChild(arrayName);
-    }
-
-
 			//誰からでもメッセージを受信した時
 			ws.on ('message', function (message) {
 				var now = new Date();
         var date = JSON.parse(message);
-				//console.log (now.toLocaleString() + ' Received: %s', message);
 				wss.broadcast (message);
-        //console.log(date);
         Send(date.ID, message);
 			});
 
+      /*
+      接続が切断された場合
+      */
       ws.on('close', function (ws) {
         var closeid = "nuloppp";
         console.log(ws);
@@ -166,5 +151,4 @@ wss.on('connection', function(ws) {
         console.log(err);
         console.log(err.stack);
       });
-
 });
