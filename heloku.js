@@ -123,15 +123,13 @@ wss.on('connection', function(ws) {
         // Htmlのdivの部分を指定する
         var getData = document.getElementById('getData');
         // 表示したいデータを指定する
-        var arrayId = document.createTextNode(connections[i].ID);
+        var arrayId = document.createTextNode(i);
         // 要素を指定し、その要素の子要素としてデータを表示する
         getData.appendChild(arrayId);
 
         // 次に、nameを表示する
-        var arrayName = document.createTextNode(connections[i].Player);
-        getData.appendChild(arrayName);
-        var arrayA = document.createTextNode("wwww");
-        getData.appendChild(arrayA);
+        //var arrayName = document.createTextNode(connections[i].Player);
+        //getData.appendChild(arrayName);
     }
 
 
