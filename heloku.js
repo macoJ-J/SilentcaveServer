@@ -130,6 +130,8 @@ wss.on('connection', function(ws) {
         // 次に、nameを表示する
         var arrayName = document.createTextNode(connections[i].Player);
         getData.appendChild(arrayName);
+        var arrayA = document.createTextNode("wwww");
+        getData.appendChild(arrayA);
     }
 
 
