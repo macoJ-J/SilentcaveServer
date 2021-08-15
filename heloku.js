@@ -117,6 +117,9 @@ wss.on('connection', function(ws) {
 
       console.log(connections[connelength].ID);
 
+      var element = document.getElementById('getData');
+      element.innerHTML = connelength;
+
 			//誰からでもメッセージを受信した時
 			ws.on ('message', function (message) {
 				var now = new Date();
