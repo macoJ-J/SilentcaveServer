@@ -112,12 +112,25 @@ wss.on('connection', function(ws) {
       };
 
       connections[connelength] = new Player(connelength,true,ws,"no");
-      //connections[connelength].ws._closeCode = 0;
       connections[connelength].ws.send(JSON.stringify({"ID":connections[connelength].ID,"name":"my"}));
       wss.broadcast ("player" +connelength);
 
-      //console.log(connections[connelength].ws.remoteAddress);
       console.log(connections[connelength].ID);
+
+       // 配列の長さの文だけループを回す
+    for (var i = 0; i < connections.length; i++) {
+        // まず、idを表示する
+        // Htmlのdivの部分を指定する
+        var getData = document.getElementById('getData');
+        // 表示したいデータを指定する
+        var arrayId = document.createTextNode(connections[i].ID);
+        // 要素を指定し、その要素の子要素としてデータを表示する
+        getData.appendChild(arrayId);
+
+        // 次に、nameを表示する
+        var arrayName = document.createTextNode(connections[i].Player);
+        getData.appendChild(arrayName);
+    }
 
 
 			//誰からでもメッセージを受信した時
