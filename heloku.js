@@ -10,7 +10,7 @@ var server = http.createServer(app);
 server.listen(port,process.env.IP);
 
 console.log('http server listening on %d', port);
-
+        
 var now = new Date();
 
 var connections = [];
@@ -27,6 +27,8 @@ var Player = function(ID, isconnection, ws,ready){
   this.ws = ws;
 	this.ready = ready;
 }
+
+document.write("<p>JavaScriptファイルの読み込みテスト</p>");
 
 
 wss.broadcast = function (data) {
