@@ -28,7 +28,7 @@ var Player = function(ID, isconnection, ws,ready){
 	this.ready = ready;
 }
 
-document.write("<p>JavaScriptファイルの読み込みテスト</p>");
+//document.write("<p>JavaScriptファイルの読み込みテスト</p>");
 
 
 wss.broadcast = function (data) {
