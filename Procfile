@@ -1,1 +1,1 @@
-web: node heloku
+web: sh -c 'cd ./public/script/ && node heloku'

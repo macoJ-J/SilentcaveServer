@@ -2,7 +2,7 @@
   "name": "Silentcave",
   "version": "1.0.0",
   "description": "silentcave",
-  "main": "heloku.js",
+  "main": "heroku.js",
   "dependencies": {
     "express": "*",
     "ws": "*"
