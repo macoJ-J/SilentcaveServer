@@ -13,14 +13,11 @@ main {
   flex: 1;
 }
 
-* {
-  margin:0; padding:0;
-}
 footer{
     width: 100%;
     height: 100px;
     background-color: #0000cd;
-    color: f4f4f4;
+    color: #f4f4f4;
     text-align: center;
 }
 ul.footer-menu li {
