@@ -124,7 +124,7 @@ wss.on('connection', function(ws) {
 
       //htmlの処理---------------
       var a = "現在" + connelength + "のプレイヤーが接続中です。";
-      activeuserjson = {a};
+      activeuserjson = {"message":a};
       fs.writeFile(__dirname  +'/public/json/activeplayerdata.json', JSON.stringify(activeuserjson), err => {
       // Checking for errors
       if (err) throw err; 
