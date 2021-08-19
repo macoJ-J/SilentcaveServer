@@ -122,19 +122,6 @@ wss.on('connection', function(ws) {
 
       console.log(connections[connelength].ID);
 
-      //htmlの処理---------------
-      let www = {
-        "message":"aa"
-      };
-
-      activeuserjson.push(www);
-
-      fs.writeFile(__dirname  +'/public/json/activeplayerdata.json', JSON.stringify(activeuserjson), err => {
-      // Checking for errors
-      if (err) throw err; 
-      console.log("Done writing"); // Success
-    });
-
       /*
       メッセージを受信した場合
       */      
