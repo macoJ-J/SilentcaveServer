@@ -1,1 +1,1 @@
-web: sh -c 'cd ./public/script/ && node heroku'
+web: node heroku

@@ -4,9 +4,9 @@ var WebSocketServer = require('ws').Server
 	, app = express()
 	, port = process.env.PORT || 5000;
 
-//app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 //app.use(express.static('../public'));
-app.use('../public');
+//app.use('../public');
 
 var server = http.createServer(app);
 server.listen(port,process.env.IP);

@@ -8,7 +8,7 @@
     "ws": "*"
   },
   "scripts": {
-    "start": "node public/script/heroku.js"
+    "start": "node heroku.js"
   },
   "engines": {
     "node": "6.11.4"
