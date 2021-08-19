@@ -121,20 +121,18 @@ wss.on('connection', function(ws) {
 
       console.log(connections[connelength].ID);
 
-      //htmlの処理
+      //htmlの処理---------------
       let user = {
             ID: connelength,
             name: "Cave Master",
       };
-      activeuserjson.push(user);
-      // STEP 3: Writing to a file
+      activeuserjson.push(connections);
       fs.writeFile(__dirname  +'/public/json/activeplayerdata.json', JSON.stringify(activeuserjson), err => {
-     
       // Checking for errors
       if (err) throw err; 
       console.log("Done writing"); // Success
+            console.log(activeuserjson);
     });
-      console.log(activeuserjson);
 
       /*
       メッセージを受信した場合
@@ -165,6 +163,7 @@ wss.on('connection', function(ws) {
 
       ws.on('disconnect', function(ws){
         console.log("disconnect:" + ws);
+
       });
 
 
