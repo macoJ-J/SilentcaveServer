@@ -11,8 +11,6 @@ server.listen(port,process.env.IP);
 
 console.log('http server listening on %d', port);
         
-var now = new Date(); 
-
 var connections = [];
 connections[0] = null;
 
@@ -30,14 +28,20 @@ var Player = function(ID, isconnection, ws,ready){
 
 /*------index.html用処理------*/
 const activeuserjson = require(__dirname  +'/public/json/activeplayerdata.json');
+const fs = require('fs');
 console.log(activeuserjson);
 /*-----------↑サーバー起動時処理------------*/
 
+//接続している全てのクライアントにデータを送信する
 wss.broadcast = function (data) {
 	for (var i in this.clients) {
 		this.clients [i].send (data);
 	};
 };
+
+/*
+試合開始の処理
+*/
 function readygo(ID,who){
 	connections[ID].ws.send(JSON.stringify({"server":"readygo","name":"server"}));
 	try{
@@ -48,6 +52,9 @@ function readygo(ID,who){
 	}
 }
 
+/*
+データをクライアントに送信する処理
+*/
 function Send(ID, message){
   var who;
 	var date = JSON.parse(message);
@@ -56,8 +63,7 @@ function Send(ID, message){
   }else {
     who = ID + 1;
   }
-  //console.log(id);
-
+  //クライアントからのデータに"ready"が含まれていたら。
 	if (~message.indexOf('ready')) {
 		try {
 			connections[ID].ready = date.ready;
@@ -65,14 +71,8 @@ function Send(ID, message){
 			console.log(err.name + ': ' + err.message);
 		}
 	};
-  if(connections[who] !== undefined){
-		if(date.weaponknockback !== undefined && date.weaponknockback !== ""){
-		//if(date.weaponknockback !== undefined && date.isChanged === true && date.name === "my"){
 
-			//count++;
-    	//console.log (' Received: %s',date.weaponknockback,date.name,date.ID);
-			//setTimeout(cou, 10000);
-		}
+  if(connections[who] !== undefined){
     //console.log(connections[who].isconnection);
     if (connections[who].isconnection === true){
       if (~message.indexOf('my')) {
@@ -81,7 +81,6 @@ function Send(ID, message){
       }else if ( ~message.indexOf('opponent')) {
         message = message.replace( /opponent/g , "my" ) ;
       };
-    //  console.log(message);
       var data1 = JSON.parse(message);
 			try{
 				connections[who].ws.send(JSON.stringify(data1));
@@ -90,9 +89,8 @@ function Send(ID, message){
 				connections[who].isconnection == false;
 			}
 
-			//試合開始の同期
+			//プレイヤー1とプレイヤー2の準備が完了していたら対戦開始の処理
 			if(connections[who].ready === "ready" && connections[ID].ready === "ready"){
-				//count++;
 				console.log (' Received:');
 				connections[who].ready = "no";
 				connections[ID].ready = "no";
@@ -115,15 +113,26 @@ wss.on('connection', function(ws) {
         };
       };
 
+      //新しいユーザの登録
       connections[connelength] = new Player(connelength,true,ws,"no");
+      //ユーザに部屋IDの情報を送信
       connections[connelength].ws.send(JSON.stringify({"ID":connections[connelength].ID,"name":"my"}));
       wss.broadcast ("player" +connelength);
 
       console.log(connections[connelength].ID);
 
-			//誰からでもメッセージを受信した時
+      //htmlの処理
+      let user = {
+            ID: connelength,
+            name: "Cave Master",
+      };
+      activeuserjson.push();
+      console.log(activeuserjson);
+
+      /*
+      メッセージを受信した場合
+      */      
 			ws.on ('message', function (message) {
-				var now = new Date();
         var date = JSON.parse(message);
 				wss.broadcast (message);
         Send(date.ID, message);
@@ -151,6 +160,10 @@ wss.on('connection', function(ws) {
         console.log("disconnect:" + ws);
       });
 
+
+      /*
+      エラーが発生した場合
+      */
       ws.on('error', function(err){
         console.log(err);
         console.log(err.stack);
