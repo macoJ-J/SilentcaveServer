@@ -121,7 +121,7 @@ wss.on('connection', function(ws) {
       wss.broadcast ("player" +connelength);
 
       console.log(connections[connelength].ID);
-      var abc = "現在" + connelength + "のプレイヤーが接続中です。";
+      var abc = "現在" + connelength + "名のプレイヤーが接続中です。";
       var messagejson = {"message":abc};
       activeuserjson.push(messagejson);
       fs.writeFile(__dirname  +'/public/json/activeplayerdata.json', JSON.stringify(activeuserjson), err => {
