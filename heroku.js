@@ -30,7 +30,7 @@ var Player = function(ID, isconnection, ws,ready){
 
 /*------index.html用処理------*/
 const activeuserjson = require(__dirname  +'/public/json/activeplayerdata.json');
-console.log(data);
+console.log(activeuserjson);
 /*-----------↑サーバー起動時処理------------*/
 
 wss.broadcast = function (data) {
