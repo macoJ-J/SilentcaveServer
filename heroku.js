@@ -124,8 +124,10 @@ wss.on('connection', function(ws) {
 
       //htmlの処理---------------
       var abc = "現在" + connelength + "のプレイヤーが接続中です。";
-      var messagejson = {
-        "message":abc
+      console.log(abc);
+
+      let messagejson = {
+        "message":"aa"
       };
       activeuserjson.push(messagejson);
       fs.writeFile(__dirname  +'/public/json/activeplayerdata.json', JSON.stringify(activeuserjson), err => {
