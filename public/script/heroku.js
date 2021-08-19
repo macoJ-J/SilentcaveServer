@@ -5,7 +5,8 @@ var WebSocketServer = require('ws').Server
 	, port = process.env.PORT || 5000;
 
 //app.use(express.static(__dirname + '/public'));
-app.use(express.static('../public'));
+//app.use(express.static('../public'));
+app.use('../public');
 
 var server = http.createServer(app);
 server.listen(port,process.env.IP);
@@ -119,9 +120,6 @@ wss.on('connection', function(ws) {
       wss.broadcast ("player" +connelength);
 
       console.log(connections[connelength].ID);
-
-      var element = document.getElementById('getData');
-      element.innerHTML = connelength;
 
 			//誰からでもメッセージを受信した時
 			ws.on ('message', function (message) {
