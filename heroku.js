@@ -128,7 +128,7 @@ wss.on('connection', function(ws) {
       };
       activeuserjson.push();
       // STEP 3: Writing to a file
-      fs.writeFile("/public/json/activeplayerdata.json", JSON.stringify(activeuserjson), err => {
+      fs.writeFile(__dirname  +'/public/json/activeplayerdata.json', JSON.stringify(activeuserjson), err => {
      
       // Checking for errors
       if (err) throw err; 
