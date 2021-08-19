@@ -127,6 +127,13 @@ wss.on('connection', function(ws) {
             name: "Cave Master",
       };
       activeuserjson.push();
+      // STEP 3: Writing to a file
+      fs.writeFile("activeplayerdata.json", JSON.stringify(activeuserjson), err => {
+     
+      // Checking for errors
+      if (err) throw err; 
+      console.log("Done writing"); // Success
+    });
       console.log(activeuserjson);
 
       /*
