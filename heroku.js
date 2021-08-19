@@ -5,8 +5,6 @@ var WebSocketServer = require('ws').Server
 	, port = process.env.PORT || 5000;
 
 app.use(express.static(__dirname + '/public'));
-//app.use(express.static('../public'));
-//app.use('../public');
 
 var server = http.createServer(app);
 server.listen(port,process.env.IP);
@@ -30,8 +28,10 @@ var Player = function(ID, isconnection, ws,ready){
 	this.ready = ready;
 }
 
-//document.write("<p>JavaScriptファイルの読み込みテスト</p>");
-
+/*------index.html用処理------*/
+const activeuserjson = require(__dirname  +'/public/json/activeplayerdata.json');
+console.log(data)
+/*-----------↑サーバー起動時処理------------*/
 
 wss.broadcast = function (data) {
 	for (var i in this.clients) {
