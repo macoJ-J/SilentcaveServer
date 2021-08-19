@@ -5,14 +5,14 @@ var WebSocketServer = require('ws').Server
 	, port = process.env.PORT || 5000;
 
 //app.use(express.static(__dirname + '/public'));
-app.use(express.static('/'));
+app.use(express.static('../public'));
 
 var server = http.createServer(app);
 server.listen(port,process.env.IP);
 
 console.log('http server listening on %d', port);
         
-var now = new Date();
+var now = new Date(); 
 
 var connections = [];
 connections[0] = null;
