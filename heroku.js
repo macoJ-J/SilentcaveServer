@@ -123,18 +123,16 @@ wss.on('connection', function(ws) {
       console.log(connections[connelength].ID);
 
       //htmlの処理---------------
-      var abc = "現在" + connelength + "のプレイヤーが接続中です。";
-      console.log(abc);
-
-      let messagejson = {
+      let www = {
         "message":"aa"
       };
-      activeuserjson.push(messagejson);
+
+      activeuserjson.push(www);
+
       fs.writeFile(__dirname  +'/public/json/activeplayerdata.json', JSON.stringify(activeuserjson), err => {
       // Checking for errors
       if (err) throw err; 
       console.log("Done writing"); // Success
-            console.log(activeuserjson);
     });
 
       /*
