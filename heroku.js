@@ -104,11 +104,12 @@ function Send(ID, message){
 console.log('websocket server created');
 wss.on('connection', function(ws) {
 
-      var connelength =  connections.length ;
+      var connelength =  connections.length;
+      
+      //connections配列の更新処理、接続されて
       for(i = 1; i < connelength; i++){
         if ( connections[i].isconnection === false){
           connelength = i;
-          console.log(connelength);
           break;
         };
       };
@@ -122,11 +123,8 @@ wss.on('connection', function(ws) {
       console.log(connections[connelength].ID);
 
       //htmlの処理---------------
-      let user = {
-            ID: connelength,
-            name: "Cave Master",
-      };
-      activeuserjson.push(connections);
+      var a = "現在" + connelength + "のプレイヤーが接続中です。";
+      activeuserjson = {a};
       fs.writeFile(__dirname  +'/public/json/activeplayerdata.json', JSON.stringify(activeuserjson), err => {
       // Checking for errors
       if (err) throw err; 
