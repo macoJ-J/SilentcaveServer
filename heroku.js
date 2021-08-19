@@ -126,7 +126,7 @@ wss.on('connection', function(ws) {
             ID: connelength,
             name: "Cave Master",
       };
-      activeuserjson.push();
+      activeuserjson.push(user);
       // STEP 3: Writing to a file
       fs.writeFile(__dirname  +'/public/json/activeplayerdata.json', JSON.stringify(activeuserjson), err => {
      
