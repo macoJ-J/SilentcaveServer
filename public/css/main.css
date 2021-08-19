@@ -9,6 +9,12 @@ body {
   flex-flow: column;
   min-height: 100vh;
 }
+body,
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 main {
   flex: 1;
 }
@@ -19,6 +25,8 @@ footer{
     background-color: #0000cd;
     color: #f4f4f4;
     text-align: center;
+      margin-top: auto;
+
 }
 ul.footer-menu li {
 display: inline;
