@@ -52,6 +52,20 @@ function readygo(ID,who){
 	}
 }
 
+function updateActivePlayerJson(count)
+{
+      var message = "現在" + count + "名のプレイヤーが接続中です。";
+      var messagejson = {"message":message};
+
+      activeuserjson.push(messagejson);
+      fs.writeFile(__dirname  +'/public/json/activeplayerdata.json', JSON.stringify(activeuserjson), err => {
+      // Checking for errors
+      if (err) throw err; 
+      console.log("Done writing"); // Success
+      console.log(activeuserjson);
+    });
+}
+
 /*
 データをクライアントに送信する処理
 */
@@ -121,6 +135,8 @@ wss.on('connection', function(ws) {
       wss.broadcast ("player" +connelength);
 
       console.log(connections[connelength].ID);
+      updateActivePlayerJson(connelength);
+      /*
       var abc = "現在" + connelength + "名のプレイヤーが接続中です。";
       var messagejson = {"message":abc};
       activeuserjson.push(messagejson);
@@ -130,6 +146,7 @@ wss.on('connection', function(ws) {
       console.log("Done writing"); // Success
       console.log(activeuserjson);
     });
+    */
 
       /*
       メッセージを受信した場合
@@ -155,6 +172,7 @@ wss.on('connection', function(ws) {
             connections[i].ws._closeCode = 0;
           }
         }
+        updateActivePlayerJson(connections.length-1);
         console.log ('player' + closeid +  ':reset');
       });
 
