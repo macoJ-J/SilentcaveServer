@@ -8,23 +8,14 @@
    <link rel="stylesheet" href="css/main.css" as="style" />
  <script type="text/javascript" src="script/display-active-player.js"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="/express/express.js"></script>
 
  <script type="text/javascript">
 
 $.getJSON("/json/activeplayerdata.json", function(json) {
     console.log(json); // this will show the info it in firebug console
-});
+    document.getElementById("getData").innerHTML = json[json.length];
 
- /*
- function displayActivePlayer()
-{   
-    console.log(activeuserjson);
-    console.log(activeuserjson.length);
-    document.getElementById("getData").innerHTML = "現在接続中のプレイヤーは" + activeuserjson.length + "名です。";
-}
-window.onload = displayActivePlayer;
-*/
+});
 </script>
 
 
