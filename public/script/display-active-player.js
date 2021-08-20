@@ -1,10 +1,11 @@
 function displayActivePlayer()
 {
     const fs = require('fs');
-
-const activeuserjson = require('/json/activeplayerdata.json');
+    const activeuserjson = require(__dirname +'/../json/activeplayerdata.json');
     
-    document.getElementById("getData").innerHTML = activeuserjson[Object.keys(activeuserjson).length];
+    console.log(activeuserjson);
+    console.log(activeuserjson.length);
+    document.getElementById("getData").innerHTML = "現在接続中のプレイヤーは" + activeuserjson.length + "名です。";
 }
 
-window.onload =displayActivePlayer;
+window.onload = displayActivePlayer;
