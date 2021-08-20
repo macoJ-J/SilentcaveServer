@@ -147,7 +147,10 @@ wss.on('connection', function(ws) {
         var date = JSON.parse(message);
 				wss.broadcast (message);
         Send(date.ID, message);
+        if(date.ID === 1)
+        {
         console.log(date);
+        }
 			});
 
       /*
