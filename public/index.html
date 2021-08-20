@@ -10,18 +10,15 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
  <script type="text/javascript">
-
 $.getJSON("/json/activeplayerdata.json", function(json) {
     console.log(json); // this will show the info it in firebug console
     document.getElementById("getData").innerHTML = json[json.length-1].message;
 });
 </script>
-
-
  </head>
+
  <body>
    <div id="wrapper">
-
  <!-- main -->
  <article>
  <h1>Silent Cave</h1>
@@ -31,8 +28,8 @@ $.getJSON("/json/activeplayerdata.json", function(json) {
  <section>
  <h2>PREPAREDNESS PLAYERS</h2>
     <p id="getData"></p>
-      <img src="image/warrior.png">
-   <img src="image/warrior.png">
+      <img src="image/warrior.png" width="200%" height="200%">
+
  </section>
  </article>
  <!--- /main -->
