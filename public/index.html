@@ -11,15 +11,20 @@
   <script src="/express/express.js"></script>
 
  <script type="text/javascript">
+
+$.getJSON("/json/activeplayerdata.json", function(json) {
+    console.log(json); // this will show the info it in firebug console
+});
+
+ /*
  function displayActivePlayer()
-{
-    const activeuserjson = require(__dirname +'/../json/activeplayerdata.json');
-   
+{   
     console.log(activeuserjson);
     console.log(activeuserjson.length);
     document.getElementById("getData").innerHTML = "現在接続中のプレイヤーは" + activeuserjson.length + "名です。";
 }
 window.onload = displayActivePlayer;
+*/
 </script>
 
 
