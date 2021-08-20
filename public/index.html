@@ -13,7 +13,7 @@
 
 $.getJSON("/json/activeplayerdata.json", function(json) {
     console.log(json); // this will show the info it in firebug console
-    document.getElementById("getData").innerHTML = json[json.length-1].name;
+    document.getElementById("getData").innerHTML = json[json.length-1].message;
 });
 </script>
 
